@@ -15,6 +15,7 @@ Packet type definitions are similar to Rust `struct` declarations. However:
       len: u32;
       data: [T; len];
   }
+  ~~~
 * `if` statements may occur in types (and reference prior fields):
   ~~~rs
   struct Cond<T> {
