@@ -50,7 +50,7 @@ struct ChanID {
 }
 ~~~
 
-## C→S Packets
+## Client→Server Packets
 
 ### `00` Client Data
 [Client Data]: #00-client-data
@@ -91,7 +91,7 @@ struct Disconnect {
 }
 ~~~
 
-## S→C Packets
+## Server→Client Packets
 
 ### `00` Server Data
 [Server Data]: #00-server-data
