@@ -118,7 +118,7 @@ struct ConnectResponse {
 
 ### `02` Disconnect Response
 [Disconnect Response]: #02-disconnect-response
-Acts as an acknowledgement of [Disconnect]. Servers **MUST NOT** perform any action except sending this packet immediately after a [Disconnect]. Further packets, if any, **MUST NOT** be sent before this packet.
+This acknowledges a client's disconnection. This packet **MUST** be the first packet sent by the server after it receives a [Disconnect]. Servers **MUST NOT** send any [Server Data] packets on this connection afterwards. Servers are incapable of preventing disconnection.
 
 ~~~rs
 struct DisconnectResponse {
