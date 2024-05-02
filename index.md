@@ -1,5 +1,5 @@
 # STRIN
-STRIN is a protocol for managing arbitrarily many typed connection streams to a server. It runs on top of [WebSocket], interpreting each complete frame as a packet:
+STRIN is a protocol for managing arbitrarily many typed connection streams to a server. It runs on top of [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API), interpreting each complete frame as a packet:
 ~~~rs
 struct Packet {
     type: u8;
