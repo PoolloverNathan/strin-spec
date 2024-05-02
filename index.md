@@ -54,7 +54,7 @@ struct ChanID {
 
 ### `00` Client Data
 [Client Data]: #00-client-data
-Represents data being sent to the server on a connection created with [Connect]. STRIN does not interpret the payload as anything other than raw bytes — only the channel type may interpret this data.
+Represents data being sent to the server on a connection created with [Connect]. This packet **MUST NOT** be sent to a channel until a corresponding [Connect Response] is received. Implementations **MUST NOT** interpret the payload as anything other than raw bytes — only the channel type may interpret this data.
 
 ~~~rs
 struct ClientData {
@@ -64,10 +64,28 @@ struct ClientData {
 
 ### `01` Connect
 [Connect]: #01-connect
-Connects to a given channel by ID. The upper 32 bits of the ID define the channel type, as with all channel IDs. This will be followed by [Connect Response].
+Connects to a given channel by ID. The upper 32 bits of the ID define the channel type, as with all channel IDs. This must be responded to with either [Connect Response] or [Failure].
 
 ~~~rs
 struct Connect {
+  id: chanid;
+  payload: [u8];
+}
+~~~
+
+#### Errors
+
+| ID | Description
+|:--:| :-
+|`40`| Nonexistent channel type
+|`44`| Channel ID does not exist for channel type
+
+### `02` Disconnect
+[Disconnect]: #02-disconnect
+Terminates a connection (and acts as an acknowledgement for [Disconnect Request]). Clients **MUST NOT** send further [Client Data] packets on this channel, but **SHOULD** expect further [Server Data] packets until a [Disconnect Response] is received.
+
+~~~rs
+struct Disconnect {
   id: chanid;
   payload: [u8];
 }
@@ -87,19 +105,47 @@ struct ServerData {
 
 ### `01` Connect Response
 [Connect Response]: #01-connect-response
-Completes a connection handshake. If `error` is 0, `handle` is the ID of a connection to the channel, and `payload` is a response to [Connect]'s payload. Otherwise, `err_payload` is additional information about `error` (if any).
+Completes a connection handshake initiated by [Connect]. `handle` is the ID of a connection to the channel, and `payload` is a response to [Connect]'s payload.
 
 ~~~rs
 struct ConnectResponse {
   reply: u16;
   id: ChanID;
-  error: u16;
-  if error == 0 {
-    handle: u128;
-    payload: [u8];
-  } else {
-    err_payload: [u8];
-  }
+  handle: u128;
+  payload: [u8];
+}
+~~~
+
+### `02` Disconnect Response
+[Disconnect Response]: #02-disconnect-response
+Acts as an acknowledgement of [Disconnect]. Servers **MUST NOT** perform any action except sending this packet immediately after a [Disconnect]. Further packets, if any, **MUST NOT** be sent before this packet.
+
+~~~rs
+struct DisconnectResponse {
+  reply: u16;
+  id: ChanID;
+}
+~~~
+
+### `03` Disconnect Request
+[Disconnect Request]: #03-disconnect-request
+Represents the server choosing to terminate a connection. Clients **MUST** immediately reply with [Disconnect], making this less of a request and more of a requirement. Servers **MUST NOT** send any further [Server Data] packets on this channel after sending this packet.
+~~~rs
+struct DisconnectRequest {
+  id: ChanID;
+  payload: [u8];
+}
+~~~
+
+### `E1` Failure
+[Failure]: #e1-failure
+Acts as a generic failure message. `error` is a numeric error type whose possibilities are decided by the `reply`ed-to packet. Errors with bit 15 set are implementation-defined; errors with bit 15 clear are reserved for the specification.
+
+~~~rs
+struct ConnectFail {
+  reply: u16;
+  id: ChanID;
+  err_payload: [u8];
 }
 ~~~
 
