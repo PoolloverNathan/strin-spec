@@ -33,7 +33,7 @@ Packet type definitions are similar to Rust `struct` declarations. However:
     r: u12;
   }
   ~~~
-## Common
+## Common Definitions
 ~~~rs
 struct ChanID {
   type_part: u32;
