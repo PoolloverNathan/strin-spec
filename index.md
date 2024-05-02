@@ -102,3 +102,7 @@ struct ConnectResponse {
   }
 }
 ~~~
+
+## Common Protocols
+
+* `1117` [Echo](/common/1117.md)
