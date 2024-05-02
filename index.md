@@ -157,23 +157,23 @@ struct ConnectFail {
 
 <style>
   @font-face {
-    font-family: jetbrains-mono;
+    font-family: jetbrainsmono;
     src: url(fonts/jetbrains-mono.ttf);
   }
   @font-face {
-    font-family: open-sans;
+    font-family: opensans;
     src: url(fonts/open-sans.ttf);
   }
   @font-face {
-    font-family: reddit-sans;
+    font-family: redditsans;
     src: url(fonts/reddit-sans.ttf);
     unicode-range: U+2192;
   }
 
   body {
-    font-family: reddit-sans, open-sans;
+    font-family: redditsans, opensans;
   }
   code {
-    font-family: jetbrains-mono;
+    font-family: jetbrainsmono;
   }
 </style>
