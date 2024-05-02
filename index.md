@@ -50,7 +50,7 @@ struct ChanID {
 }
 ~~~
 
-## Client→Server Packets
+## Client&rarr;Server Packets
 
 ### `00` Client Data
 [Client Data]: #00-client-data
@@ -91,7 +91,7 @@ struct Disconnect {
 }
 ~~~
 
-## Server→Client Packets
+## Server&rarr;Client Packets
 
 ### `00` Server Data
 [Server Data]: #00-server-data
@@ -151,4 +151,29 @@ struct ConnectFail {
 
 ## Common Protocols
 
-* `1117` [Echo](/common/1117.md)
+* `1117` [Echo](common/1117.md)
+
+<!-- footer -->
+
+<style>
+  @font-face {
+    font-family: jetbrains-mono;
+    src: url(fonts/jetbrains-mono.ttf);
+  }
+  @font-face {
+    font-family: open-sans;
+    src: url(fonts/open-sans.ttf);
+  }
+  @font-face {
+    font-family: reddit-sans;
+    src: url(fonts/reddit-sans.ttf);
+    unicode-range: U+2192;
+  }
+
+  body {
+    font-family: reddit-sans, open-sans;
+  }
+  code {
+    font-family: jetbrains-mono;
+  }
+</style>
