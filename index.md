@@ -154,26 +154,4 @@ struct ConnectFail {
 * `1117` [Echo](common/1117.md)
 
 <!-- footer -->
-
-<style>
-  @font-face {
-    font-family: jetbrainsmono;
-    src: url(fonts/jetbrains-mono.ttf);
-  }
-  @font-face {
-    font-family: opensans;
-    src: url(fonts/open-sans.ttf);
-  }
-  @font-face {
-    font-family: redditsans;
-    src: url(fonts/reddit-sans.ttf);
-    unicode-range: U+2192;
-  }
-
-  body {
-    font-family: redditsans, opensans;
-  }
-  code {
-    font-family: jetbrainsmono;
-  }
-</style>
+<link href="./styles.css" rel="stylesheet">
